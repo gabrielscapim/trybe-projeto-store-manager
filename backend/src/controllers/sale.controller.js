@@ -13,7 +13,7 @@ const findAllSales = async (_req, res) => {
 const findSaleById = async (req, res) => {
     const { id } = req.params;
     const { status, data } = await saleService.getSaleById(id);
-
+    
     if (status !== 'SUCESSFUL') {
         return res.status(404).json(data);
     }
@@ -21,7 +21,19 @@ const findSaleById = async (req, res) => {
     return res.status(200).json(data);
 };
 
+const addSale = async (req, res) => {
+    const { status, data } = await saleService.addSale(req.body);
+
+    if (status !== 'SUCESSFUL') {
+        console.log('ntrou');
+        return res.status(400).json(data);
+    }
+
+    return res.status(201).json(data);
+};
+
 module.exports = {
     findAllSales,
     findSaleById,
+    addSale,
 };

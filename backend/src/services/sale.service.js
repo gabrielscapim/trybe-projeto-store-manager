@@ -20,7 +20,18 @@ const getSaleById = async (saleId) => {
     return { status: 'SUCESSFUL', data: sales };
 };
 
+const addSale = async (sales) => {
+    const returnFromModel = await saleModel.addSale(sales);
+
+    if (!returnFromModel) {
+        return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to register sale' } };
+    }
+
+    return { status: 'SUCESSFUL', data: returnFromModel };
+};
+
 module.exports = {
     getAllSales,
     getSaleById,
+    addSale,
 };
