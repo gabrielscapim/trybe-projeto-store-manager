@@ -20,7 +20,18 @@ const getProductById = async (productId) => {
     return { status: 'SUCESSFUL', data: product };
 };
 
+const addProduct = async (productName) => {
+    const resultFromModel = await productModel.addProduct(productName);
+
+    if (!resultFromModel) {
+        return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to register product' } };
+    }
+
+    return { status: 'SUCESSFUL', data: { name: productName, id: resultFromModel.insertId } };
+};
+
 module.exports = {
     getAllProducts,
     getProductById,
+    addProduct,
 };
