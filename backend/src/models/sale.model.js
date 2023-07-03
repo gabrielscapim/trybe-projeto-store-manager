@@ -1,3 +1,4 @@
+const camelize = require('camelize');
 const connection = require('./connection');
 
 const findAllSales = async () => {
@@ -9,7 +10,7 @@ const findAllSales = async () => {
 
     const [sales] = await connection.execute(QUERY);
 
-    return sales;
+    return camelize(sales);
 };
 
 const findSaleById = async (saleId) => {
@@ -22,7 +23,7 @@ const findSaleById = async (saleId) => {
 
     const [sales] = await connection.execute(QUERY, [saleId]);
 
-    return sales;
+    return camelize(sales);
 };
 
 module.exports = {
