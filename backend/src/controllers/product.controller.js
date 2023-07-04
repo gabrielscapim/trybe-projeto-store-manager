@@ -44,9 +44,21 @@ const editProduct = async (req, res) => {
     return res.status(200).json(data);
 };
 
+const deleteProduct = async (req, res) => {
+    const { id } = req.params;
+    const { status, data } = await productService.deleteProduct(Number(id));
+
+    if (status !== 'SUCESSFUL') {
+        return res.status(400).json(data);
+    }
+
+    return res.status(204).json();
+};
+
 module.exports = {
     findAllProducts,
     findProductById,
     addProduct,
     editProduct,
+    deleteProduct,
 };

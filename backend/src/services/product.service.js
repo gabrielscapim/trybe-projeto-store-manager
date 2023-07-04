@@ -34,10 +34,20 @@ const editProduct = async (productName, productId) => {
     const resultFromModel = await productModel.editProduct(productName, productId);
     
     if (!resultFromModel) {
-        return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to register product' } };
+        return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to edit product' } };
     }
 
     return { status: 'SUCESSFUL', data: { id: productId, name: productName } };
+};
+
+const deleteProduct = async (productId) => {
+    const resultFromModel = await productModel.deleteProduct(productId);
+    
+    if (!resultFromModel) {
+        return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to delete product' } };
+    }
+
+    return { status: 'SUCESSFUL', data: { message: `Product with id ${productId} deleted` } };
 };
 
 module.exports = {
@@ -45,4 +55,5 @@ module.exports = {
     getProductById,
     addProduct,
     editProduct,
+    deleteProduct,
 };
