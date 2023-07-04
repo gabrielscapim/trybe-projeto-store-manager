@@ -21,13 +21,13 @@ const getProductById = async (productId) => {
 };
 
 const addProduct = async (productName) => {
-    const resultFromModel = await productModel.addProduct(productName);
+    const insertId = await productModel.addProduct(productName);
 
-    if (!resultFromModel) {
+    if (!insertId) {
         return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to register product' } };
     }
 
-    return { status: 'SUCESSFUL', data: { name: productName, id: resultFromModel.insertId } };
+    return { status: 'SUCESSFUL', data: { name: productName, id: insertId } };
 };
 
 const editProduct = async (productName, productId) => {

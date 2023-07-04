@@ -16,9 +16,9 @@ const findProductById = async (productId) => {
 
 const addProduct = async (productName) => {
     const QUERY = 'INSERT INTO products (name) VALUE (?)';
-    const [result] = await connection.execute(QUERY, [productName]);
+    const [{ insertId }] = await connection.execute(QUERY, [productName]);
 
-    return result;
+    return insertId;
 };
 
 const editProduct = async (productName, productId) => {

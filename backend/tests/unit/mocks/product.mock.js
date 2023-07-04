@@ -18,6 +18,10 @@ const productFromDB = {
     name: 'Martelo de Thor',
 };
 
+const productIdFromDB = {
+  insertId: 4,
+};
+
 const productsFromModel = productsFromDB;
 const productFromModel = productFromDB;
 
@@ -44,4 +48,5 @@ module.exports = {
     getProductsFromServiceSucessful,
     getProductFromServiceSucessful,
     getProductFromServiceNotSucessful,
+    productIdFromDB,
 };
