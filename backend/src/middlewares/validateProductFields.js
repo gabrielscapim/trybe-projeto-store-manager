@@ -8,13 +8,12 @@ const validateProductFields = (req, res, next) => {
     const requiredFieldError = checkRequiredFields(body, requiredFields);
     
     if (requiredFieldError) {
-        return res.status(400).json({ message: requiredFieldError });
+        return next({ statusCode: 400, message: requiredFieldError });
     }
     
     if (body.name.replace(EMPTY_STRING_REGEX).length < 5) {
-        return res.status(422).json(
-            { message: '"name" length must be at least 5 characters long' },
-        );
+        return next({ statusCode: 422,
+            message: '"name" length must be at least 5 characters long' });
     }
 
     return next();
