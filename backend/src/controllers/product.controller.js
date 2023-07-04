@@ -13,7 +13,7 @@ const findAllProducts = async (_req, res) => {
 const findProductById = async (req, res) => {
     const { id } = req.params;
     const { status, data } = await productService.getProductById(id);
-
+    
     if (status !== 'SUCESSFUL') {
         return res.status(404).json(data);
     }

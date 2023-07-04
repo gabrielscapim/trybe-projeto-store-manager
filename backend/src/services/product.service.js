@@ -12,7 +12,7 @@ const getAllProducts = async () => {
 
 const getProductById = async (productId) => {
     const product = await productModel.findProductById(productId);
-
+    
     if (!product) {
         return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
     }

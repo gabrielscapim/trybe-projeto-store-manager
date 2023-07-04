@@ -17,7 +17,15 @@ const getSaleById = async (saleId) => {
         return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
     }
 
-    return { status: 'SUCESSFUL', data: sales };
+    return { 
+        status: 'SUCESSFUL',
+        data: sales.map(({ date, productId, quantity }) => (
+            {
+                date,
+                productId,
+                quantity,
+            }
+    )) };
 };
 
 const addSale = async (sales) => {
