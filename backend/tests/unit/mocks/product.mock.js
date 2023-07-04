@@ -24,6 +24,7 @@ const productIdFromDB = {
 
 const productsFromModel = productsFromDB;
 const productFromModel = productFromDB;
+const productIdFromModel = 4;
 
 const getProductsFromServiceSucessful = {
   status: 'SUCESSFUL',
@@ -40,6 +41,11 @@ const getProductFromServiceNotSucessful = {
   data: { message: 'Product not found' },
 };
 
+const addProductFromServiceSucessful = {
+  status: 'SUCESSFUL',
+  data: { name: 'ProdutoX', id: 4 },
+};
+
 module.exports = {
     productsFromDB,
     productFromDB,
@@ -49,4 +55,6 @@ module.exports = {
     getProductFromServiceSucessful,
     getProductFromServiceNotSucessful,
     productIdFromDB,
+    productIdFromModel,
+    addProductFromServiceSucessful,
 };

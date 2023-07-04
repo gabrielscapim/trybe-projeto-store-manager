@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const { productService } = require('../../../src/services');
-const { productsFromModel, productFromModel } = require('../mocks/product.mock');
+const { productsFromModel, productFromModel, productIdFromModel } = require('../mocks/product.mock');
 const { productModel } = require('../../../src/models');
 
 describe('Realizando testes - PRODUCT SERVICE:', function () {
@@ -28,6 +28,7 @@ describe('Realizando testes - PRODUCT SERVICE:', function () {
         expect(responseService.status).to.equal('SUCESSFUL');
         expect(responseService.data).to.deep.equal(responseData);
     });
+    
     it('Pegando um produto por ID com sucesso - Status 200', async function () {
         sinon.stub(productModel, 'findProductById')
             .resolves(productFromModel);
@@ -40,6 +41,21 @@ describe('Realizando testes - PRODUCT SERVICE:', function () {
         const responseService = await productService.getProductById(productId);
         
         expect(responseService.status).to.equal('SUCESSFUL');
+        expect(responseService.data).to.deep.equal(responseData);
+    });
+
+    it('Adicionando um produto com sucesso - Status 201', async function () {
+        sinon.stub(productModel, 'addProduct')
+            .resolves(productIdFromModel);
+        const responseData = {
+            name: 'ProdutoX',
+            id: 4,
+        };
+        
+        const responseService = await productService.addProduct('ProdutoX');
+        
+        expect(responseService.status).to.equal('SUCESSFUL');
+        console.log(responseService);
         expect(responseService.data).to.deep.equal(responseData);
     });
 
