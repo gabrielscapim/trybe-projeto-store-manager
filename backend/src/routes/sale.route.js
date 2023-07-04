@@ -3,8 +3,8 @@ const { saleController } = require('../controllers');
 const { 
     validateEmptyIdSaleFields,
     validateEmptyQuantitySaleFields, 
-    validateProductIdSaleFields, 
-    validadeQuantityValue } = require('../middlewares/validateSaleFields');
+    validadeQuantityValue,
+    validateProductIdSaleFields } = require('../middlewares/validateSaleFields');
 
 route.get('/', saleController.findAllSales);
 route.get('/:id', saleController.findSaleById);

@@ -1,3 +1,4 @@
+const { productService } = require('../services');
 const checkRequiredFields = require('../utils/checkRequiredFields');
 const { EMPTY_STRING_REGEX } = require('../utils/regex');
 
@@ -19,4 +20,19 @@ const validateProductFields = (req, res, next) => {
     return next();
 };
 
-module.exports = validateProductFields;
+const validateProductId = async (req, _res, next) => {
+    const { id } = req.params;
+
+    const verifyProductId = await productService.getProductById(Number(id));
+
+    if (verifyProductId.status === 'NOT_FOUND') {
+        return next({ statusCode: 404, message: 'Product not found' });
+    }
+
+    return next();
+};
+
+module.exports = {
+    validateProductFields,
+    validateProductId,
+};

@@ -1,4 +1,4 @@
-const { saleService } = require('../services');
+const { productService } = require('../services');
 
 const validateEmptyQuantitySaleFields = async (req, res, next) => {
     const { body } = req;
@@ -41,7 +41,7 @@ const validateProductIdSaleFields = async (req, res, next) => {
     const { body } = req;
     
     const verifyIfProductIdExist = body.map(async ({ productId }) => (
-        (await saleService.getSaleById(productId)).status !== 'NOT_FOUND'
+        (await productService.getProductById(productId)).status !== 'NOT_FOUND'
     ));
 
     const isProductIdExist = await Promise.all(verifyIfProductIdExist).then((result) => (
