@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const { saleService } = require('../../../src/services');
-const { saleFromModel, salesFromModel } = require('../mocks/sale.mock');
+const { saleFromModel, salesFromModel, addSaleFromDbReturn } = require('../mocks/sale.mock');
 const { saleModel } = require('../../../src/models');
 
 describe('Realizando testes - SALE SERVICE:', function () {
@@ -57,6 +57,39 @@ describe('Realizando testes - SALE SERVICE:', function () {
 
         expect(responseService.status).to.equal('SUCESSFUL');
         expect(responseService.data).to.deep.equal(responseData);
+    });
+
+    it('Adicionando uma venda com sucesso - Status 201', async function () {
+      sinon.stub(saleModel, 'addSale').resolves(addSaleFromDbReturn);
+
+      const responseData = {
+        id: 3,
+        itemsSold: [
+          {
+            productId: 1,
+            quantity: 1,
+          },
+          {
+            productId: 2,
+            quantity: 5,
+          },
+        ],
+      };
+      const inputData = [
+        {
+          productId: 1,
+          quantity: 1,
+        },
+        {
+          productId: 2,
+          quantity: 5,
+        },
+      ];
+
+      const responseService = await saleService.addSale(inputData);
+
+      expect(responseService.status).to.equal('SUCESSFUL');
+      expect(responseService.data).to.deep.equal(responseData);
     });
 
     afterEach(function () {

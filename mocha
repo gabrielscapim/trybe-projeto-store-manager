@@ -1,0 +1,8 @@
+
+> sd-0x-store-manager@2.0.0 test
+> npm test --prefix __tests__
+
+
+> sd-0x-store-manager-tests@1.0.0 test
+> CY_CLI=true cypress run -r spec -s "**/*$REQ*"
+

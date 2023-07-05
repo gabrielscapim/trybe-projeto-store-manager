@@ -25,7 +25,6 @@ const addSale = async (req, res) => {
     const { status, data } = await saleService.addSale(req.body);
 
     if (status !== 'SUCESSFUL') {
-        console.log('ntrou');
         return res.status(400).json(data);
     }
 

@@ -55,7 +55,7 @@ describe('Realizando testes - PRODUCT SERVICE:', function () {
         const responseService = await productService.addProduct('ProdutoX');
         
         expect(responseService.status).to.equal('SUCESSFUL');
-        console.log(responseService);
+
         expect(responseService.data).to.deep.equal(responseData);
     });
 

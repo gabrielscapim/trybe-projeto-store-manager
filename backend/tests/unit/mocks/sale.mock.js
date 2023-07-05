@@ -34,6 +34,15 @@ const saleFromDB = [
     },
 ];
 
+const addSaleFromDbReturn = {
+  id: 3,
+  itemsSold: [{ productId: 1, quantity: 1 }, { productId: 2, quantity: 5 }],
+};
+
+const saleIdFromDB = {
+  insertId: 3,
+};
+
 const salesFromModel = salesFromDB;
 const saleFromModel = saleFromDB;
 
@@ -52,6 +61,11 @@ const getSaleFromServiceNotSucessful = {
     data: { message: 'Sale not found' },
 };
 
+const addSaleFromServiceSucessful = {
+    status: 'SUCESSFUL',
+    data: addSaleFromDbReturn,
+};
+
 module.exports = {
     salesFromDB,
     saleFromDB,
@@ -60,4 +74,7 @@ module.exports = {
     getSalesFromServiceSucessful,
     getSaleFromServiceSucessful,
     getSaleFromServiceNotSucessful,
+    addSaleFromDbReturn,
+    saleIdFromDB,
+    addSaleFromServiceSucessful,
 };

@@ -33,22 +33,19 @@ const addSale = async (sales) => {
     const SALES_PRODUCTS_TABLE_QUERY = `INSERT INTO sales_products (sale_id, product_id, quantity)
     VALUES (?, ?, ?);`;
 
-    const [returnFromSaleInsert] = await connection.execute(SALES_TABLE_QUERY);
+    const [{ insertId }] = await connection.execute(SALES_TABLE_QUERY);
 
-    sales.forEach(async ({ productId, quantity }) => {
+    const insertPromises = sales.map(async ({ productId, quantity }) => {
         await connection.execute(
             SALES_PRODUCTS_TABLE_QUERY,
-            [returnFromSaleInsert.insertId, productId, quantity],
+            [insertId, productId, quantity],
         );
-
-        return {
-            id: returnFromSaleInsert.insertId,
-            itemsSold: sales,
-        };
     });
 
+    await Promise.all(insertPromises);
+
     return {
-        id: returnFromSaleInsert.insertId,
+        id: insertId,
         itemsSold: sales,
     };
 };
