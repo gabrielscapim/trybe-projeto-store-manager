@@ -35,6 +35,18 @@ const updateProductFromDB = [
   undefined,
 ];
 
+const deleteProductFromDB = [
+  {
+    fieldCount: 0,
+    affectedRows: 1,
+    insertId: 0,
+    info: '',
+    serverStatus: 2,
+    warningStatus: 0,
+  },
+  undefined,
+];
+
 const productsFromModel = productsFromDB;
 const productFromModel = productFromDB;
 const productIdFromModel = 4;
@@ -67,6 +79,11 @@ const editProductFromServiceSucessful = {
   },
 };
 
+const deleteProductFromServiceSucessful = {
+  status: 'SUCESSFUL',
+  data: { message: 'Product with id 1 deleted' },
+};
+
 module.exports = {
     productsFromDB,
     productFromDB,
@@ -80,4 +97,6 @@ module.exports = {
     addProductFromServiceSucessful,
     updateProductFromDB,
     editProductFromServiceSucessful,
+    deleteProductFromDB,
+    deleteProductFromServiceSucessful,
 };

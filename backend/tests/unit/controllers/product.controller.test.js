@@ -3,7 +3,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
 const { productService } = require('../../../src/services');
-const { getProductsFromServiceSucessful, productsFromModel, getProductFromServiceSucessful, productFromModel, getProductFromServiceNotSucessful, addProductFromServiceSucessful, editProductFromServiceSucessful } = require('../mocks/product.mock');
+const { getProductsFromServiceSucessful, productsFromModel, getProductFromServiceSucessful, productFromModel, getProductFromServiceNotSucessful, addProductFromServiceSucessful, editProductFromServiceSucessful, deleteProductFromServiceSucessful } = require('../mocks/product.mock');
 const { productController } = require('../../../src/controllers');
 
 chai.use(sinonChai);
@@ -80,6 +80,20 @@ describe('Realizando testes - PRODUCT CONTROLLER:', function () {
         await productController.editProduct(req, res);
         
         expect(res.status).to.have.been.calledWith(200);
+    });
+
+    it('Deletando um produto com sucesso - Status 204', async function () {
+        sinon.stub(productService, 'deleteProduct').resolves(deleteProductFromServiceSucessful);
+
+        const req = { params: { id: 1 } };
+        const res = {
+            status: sinon.stub().returnsThis(),
+            json: sinon.stub(),
+        }; 
+
+        await productController.deleteProduct(req, res);
+        
+        expect(res.status).to.have.been.calledWith(204);
     });
 
     afterEach(function () {

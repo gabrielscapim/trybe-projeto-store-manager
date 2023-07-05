@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const { productService } = require('../../../src/services');
-const { productsFromModel, productFromModel, productIdFromModel, updateProductFromDB } = require('../mocks/product.mock');
+const { productsFromModel, productFromModel, productIdFromModel, updateProductFromDB, deleteProductFromDB, editProductFromServiceSucessful } = require('../mocks/product.mock');
 const { productModel } = require('../../../src/models');
 
 describe('Realizando testes - PRODUCT SERVICE:', function () {
@@ -68,6 +68,18 @@ describe('Realizando testes - PRODUCT SERVICE:', function () {
         };
 
         const responseService = await productService.editProduct('Martelo do Batman', 1);
+
+        expect(responseService.status).to.equal('SUCESSFUL');
+
+        expect(responseService.data).to.deep.equal(responseData);
+    });
+
+    it('Deletando um produto com sucesso - Status 204', async function () {
+        sinon.stub(productModel, 'deleteProduct').resolves(deleteProductFromDB);
+
+        const responseData = { message: 'Product with id 1 deleted' };
+
+        const responseService = await productService.deleteProduct(1);
 
         expect(responseService.status).to.equal('SUCESSFUL');
 
