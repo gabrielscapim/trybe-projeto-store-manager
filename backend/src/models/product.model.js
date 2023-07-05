@@ -23,7 +23,7 @@ const addProduct = async (productName) => {
 
 const editProduct = async (productName, productId) => {
     const QUERY = 'UPDATE products SET name = ? WHERE id = ?';
-    const [result] = await connection.execute(QUERY, [productName, productId]);
+    const result = await connection.execute(QUERY, [productName, productId]);
 
     return result;
 };

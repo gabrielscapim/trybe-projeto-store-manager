@@ -22,6 +22,19 @@ const productIdFromDB = {
   insertId: 4,
 };
 
+const updateProductFromDB = [
+  {
+    fieldCount: 0,
+    affectedRows: 1,
+    insertId: 0,
+    info: 'Rows matched: 1  Changed: 0  Warnings: 0',
+    serverStatus: 2,
+    warningStatus: 0,
+    changedRows: 0,
+  },
+  undefined,
+];
+
 const productsFromModel = productsFromDB;
 const productFromModel = productFromDB;
 const productIdFromModel = 4;
@@ -46,6 +59,14 @@ const addProductFromServiceSucessful = {
   data: { name: 'ProdutoX', id: 4 },
 };
 
+const editProductFromServiceSucessful = {
+  status: 'SUCESSFUL',
+  data: {
+    id: 1,
+    name: 'Martelo do Batman',
+  },
+};
+
 module.exports = {
     productsFromDB,
     productFromDB,
@@ -57,4 +78,6 @@ module.exports = {
     productIdFromDB,
     productIdFromModel,
     addProductFromServiceSucessful,
+    updateProductFromDB,
+    editProductFromServiceSucessful,
 };
