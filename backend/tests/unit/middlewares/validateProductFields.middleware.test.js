@@ -1,7 +1,7 @@
 const chai = require('chai');
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
-const { validateProductFields } = require('../../../src/middlewares/validateProductFields');
+const { validateProductFields, validateProductId } = require('../../../src/middlewares/validateProductFields');
 
 const { expect } = chai;
 chai.use(sinonChai);
@@ -16,7 +16,7 @@ describe('Realizando testes - MIDDLEWARE VALIDATE PRODUCT FIELDS', function () {
             json: sinon.stub(),
         };
         const response = { statusCode: 400, message: '"name" is required' };
-        validateProductFields(req, res, next);
+        await validateProductFields(req, res, next);
 
         expect(next).to.have.been.calledWith(response);
     });
@@ -33,7 +33,24 @@ describe('Realizando testes - MIDDLEWARE VALIDATE PRODUCT FIELDS', function () {
             statusCode: 422,
             message: '"name" length must be at least 5 characters long',
         };
-        validateProductFields(req, res, next);
+        await validateProductFields(req, res, next);
+
+        expect(next).to.have.been.calledWith(response);
+    });
+
+    it('Fazendo uma requisição passando o campo productId não existente', async function () {
+        const next = sinon.stub().returns();
+
+        const req = { params: { id: 100 } };
+        const res = {
+            status: sinon.stub().returnsThis(),
+            json: sinon.stub(),
+        };
+        const response = { 
+            statusCode: 404,
+            message: 'Product not found',
+        };
+        await validateProductId(req, res, next);
 
         expect(next).to.have.been.calledWith(response);
     });
