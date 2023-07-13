@@ -1,4 +1,4 @@
-const { productService } = require('../services');
+const { productService, saleService } = require('../services');
 
 const validateEmptyQuantitySaleFields = async (req, res, next) => {
     const { body } = req;
@@ -55,9 +55,22 @@ const validateProductIdSaleFields = async (req, res, next) => {
     return next();
 };
 
+const validateSaleId = async (req, _res, next) => {
+    const { id } = req.params;
+
+    const verifySaleId = await saleService.getSaleById(Number(id));
+
+    if (verifySaleId.status === 'NOT_FOUND') {
+        return next({ statusCode: 404, message: 'Sale not found' });
+    }
+
+    return next();
+};
+
 module.exports = {
     validateEmptyQuantitySaleFields,
     validateEmptyIdSaleFields,
     validadeQuantityValue,
     validateProductIdSaleFields,
+    validateSaleId,
 };

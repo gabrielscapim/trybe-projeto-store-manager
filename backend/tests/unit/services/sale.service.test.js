@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const { saleService } = require('../../../src/services');
-const { saleFromModel, salesFromModel, addSaleFromDbReturn } = require('../mocks/sale.mock');
+const { saleFromModel, salesFromModel, addSaleFromDbReturn, deleteSaleFromDB } = require('../mocks/sale.mock');
 const { saleModel } = require('../../../src/models');
 
 describe('Realizando testes - SALE SERVICE:', function () {
@@ -89,6 +89,18 @@ describe('Realizando testes - SALE SERVICE:', function () {
       const responseService = await saleService.addSale(inputData);
 
       expect(responseService.status).to.equal('SUCESSFUL');
+      expect(responseService.data).to.deep.equal(responseData);
+    });
+
+    it('Deletando uma venda com sucesso - Status 204', async function () {
+      sinon.stub(saleModel, 'deleteSale').resolves(deleteSaleFromDB);
+
+      const responseData = { message: 'Sale with id 1 deleted' };
+
+      const responseService = await saleService.deleteSale(1);
+
+      expect(responseService.status).to.equal('SUCESSFUL');
+
       expect(responseService.data).to.deep.equal(responseData);
     });
 

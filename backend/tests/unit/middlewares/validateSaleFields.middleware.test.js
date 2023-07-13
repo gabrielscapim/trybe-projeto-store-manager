@@ -2,7 +2,7 @@ const chai = require('chai');
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
 const { salesToAddWithoutQuantity, salesToAddWithQuantityNegative, salesToAddWithoutProductId, salesToAddWithProductIdError } = require('../mocks/middleware.mock');
-const { validateEmptyQuantitySaleFields, validadeQuantityValue, validateEmptyIdSaleFields, validateProductIdSaleFields } = require('../../../src/middlewares/validateSaleFields');
+const { validateEmptyQuantitySaleFields, validadeQuantityValue, validateEmptyIdSaleFields, validateProductIdSaleFields, validateSaleId } = require('../../../src/middlewares/validateSaleFields');
 
 const { expect } = chai;
 chai.use(sinonChai);
@@ -73,6 +73,24 @@ describe('Realizando testes - MIDDLEWARE VALIDATE SALE FIELDS', function () {
         };
 
         await validateProductIdSaleFields(req, res, next);
+
+        expect(next).to.have.been.calledWith(response);
+    });
+
+    it('Fazendo uma requisição passando um saleId inexistente', async function () {
+        const next = sinon.stub().returns();
+
+        const req = { params: { id: 100 } };
+        const res = {
+            status: sinon.stub().returnsThis(),
+            json: sinon.stub(),
+        };
+        const response = { 
+            statusCode: 404,
+            message: 'Sale not found',
+        };
+
+        await validateSaleId(req, res, next);
 
         expect(next).to.have.been.calledWith(response);
     });

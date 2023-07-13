@@ -4,7 +4,8 @@ const {
     validateEmptyIdSaleFields,
     validateEmptyQuantitySaleFields, 
     validadeQuantityValue,
-    validateProductIdSaleFields } = require('../middlewares/validateSaleFields');
+    validateProductIdSaleFields,
+    validateSaleId } = require('../middlewares/validateSaleFields');
 
 route.get('/', saleController.findAllSales);
 route.get('/:id', saleController.findSaleById);
@@ -16,5 +17,6 @@ route.post(
     validateProductIdSaleFields,
     saleController.addSale,
 );
+route.delete('/:id', validateSaleId, saleController.deleteSale);
 
 module.exports = route;

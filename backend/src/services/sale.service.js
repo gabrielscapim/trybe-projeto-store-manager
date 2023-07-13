@@ -38,8 +38,19 @@ const addSale = async (sales) => {
     return { status: 'SUCESSFUL', data: returnFromModel };
 };
 
+const deleteSale = async (saleId) => {
+    const returnFromModel = await saleModel.deleteSale(saleId);
+
+    if (!returnFromModel) {
+        return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to delete sale' } };
+    }
+
+    return { status: 'SUCESSFUL', data: { message: `Sale with id ${saleId} deleted` } };
+};
+
 module.exports = {
     getAllSales,
     getSaleById,
     addSale,
+    deleteSale,
 };

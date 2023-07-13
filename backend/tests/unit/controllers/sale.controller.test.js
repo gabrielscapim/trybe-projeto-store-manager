@@ -4,7 +4,7 @@ const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
 const { saleService } = require('../../../src/services');
 const { saleController } = require('../../../src/controllers');
-const { getSalesFromServiceSucessful, salesFromModel, getSaleFromServiceSucessful, saleFromModel, getSaleFromServiceNotSucessful, addSaleFromServiceSucessful } = require('../mocks/sale.mock');
+const { getSalesFromServiceSucessful, salesFromModel, getSaleFromServiceSucessful, saleFromModel, getSaleFromServiceNotSucessful, addSaleFromServiceSucessful, deleteSaleFromServiceSucessful } = require('../mocks/sale.mock');
 
 chai.use(sinonChai);
 
@@ -76,6 +76,20 @@ describe('Realizando testes - SALE CONTROLLER:', function () {
         await saleController.addSale(req, res);
         
         expect(res.status).to.have.been.calledWith(201);
+    });
+
+    it('Deletando uma venda com sucessso - Status 204', async function () {
+        sinon.stub(saleService, 'deleteSale').resolves(deleteSaleFromServiceSucessful);
+
+        const req = { params: { id: 1 } };
+        const res = {
+            status: sinon.stub().returnsThis(),
+            json: sinon.stub(),
+        }; 
+
+        await saleController.deleteSale(req, res);
+        
+        expect(res.status).to.have.been.calledWith(204);
     });
     afterEach(function () {
         sinon.restore();
