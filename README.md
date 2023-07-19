@@ -12,6 +12,6 @@ Este projeto foi realizado durante uma das avaliações do curso de desenvolvime
 
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=git,nodejs,js,mysql,express" />
+    <img src="https://skillicons.dev/icons?i=git,nodejs,js,mysql,express,docker" />
   </a>
 </p>
