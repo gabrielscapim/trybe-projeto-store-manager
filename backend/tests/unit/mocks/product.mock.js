@@ -35,6 +35,13 @@ const updateProductFromDB = [
   undefined,
 ];
 
+const productsByNameFromDB = [
+  {
+    id: 1,
+    name: 'Martelo de Thor',
+  },
+];
+
 const deleteProductFromDB = [
   {
     fieldCount: 0,
@@ -84,6 +91,11 @@ const deleteProductFromServiceSucessful = {
   data: { message: 'Product with id 1 deleted' },
 };
 
+const findProductByNameFromServiceSucessful = {
+  status: 'SUCESSFUL',
+  data: productsByNameFromDB,
+};
+
 module.exports = {
     productsFromDB,
     productFromDB,
@@ -99,4 +111,6 @@ module.exports = {
     editProductFromServiceSucessful,
     deleteProductFromDB,
     deleteProductFromServiceSucessful,
+    findProductByNameFromServiceSucessful,
+    productsByNameFromDB,
 };

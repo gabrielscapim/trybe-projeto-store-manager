@@ -3,7 +3,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
 const { productService } = require('../../../src/services');
-const { getProductsFromServiceSucessful, productsFromModel, getProductFromServiceSucessful, productFromModel, getProductFromServiceNotSucessful, addProductFromServiceSucessful, editProductFromServiceSucessful, deleteProductFromServiceSucessful } = require('../mocks/product.mock');
+const { getProductsFromServiceSucessful, productsFromModel, getProductFromServiceSucessful, productFromModel, getProductFromServiceNotSucessful, addProductFromServiceSucessful, editProductFromServiceSucessful, deleteProductFromServiceSucessful, findProductByNameFromServiceSucessful } = require('../mocks/product.mock');
 const { productController } = require('../../../src/controllers');
 
 chai.use(sinonChai);
@@ -94,6 +94,34 @@ describe('Realizando testes - PRODUCT CONTROLLER:', function () {
         await productController.deleteProduct(req, res);
         
         expect(res.status).to.have.been.calledWith(204);
+    });
+
+    it('Procurando um produto por nome - Status 200', async function () {
+        sinon.stub(productService, 'findProductByName').resolves(findProductByNameFromServiceSucessful);
+
+        const req = { query: { q: 'Martelo' } };
+        const res = {
+            status: sinon.stub().returnsThis(),
+            json: sinon.stub(),
+        }; 
+
+        await productController.findProductByName(req, res);
+        
+        expect(res.status).to.have.been.calledWith(200);
+    });
+
+    it('Procurando um produto por nome com o nome vazio - Status 200', async function () {
+        const req = { query: { q: '' } };
+        const res = {
+            status: sinon.stub().returnsThis(),
+            json: sinon.stub(),
+        }; 
+
+        const products = await productController.findProductByName(req, res);
+
+        console.log(products);
+        
+        expect(res.status).to.have.been.calledWith(200);
     });
 
     afterEach(function () {

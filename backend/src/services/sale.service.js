@@ -48,9 +48,24 @@ const deleteSale = async (saleId) => {
     return { status: 'SUCESSFUL', data: { message: `Sale with id ${saleId} deleted` } };
 };
 
+const editProductQuantity = async (quantity, productId, saleId) => {
+    const returnFromModel = await saleModel.editProductQuantity(quantity, productId, saleId);
+
+    if (!returnFromModel) {
+        return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to edit sale' } };
+    }
+
+    const salesWithId = await saleModel.findSaleById(saleId);
+
+    const saleUpdated = salesWithId.find((saleWithId) => saleWithId.quantity === quantity);
+
+    return { status: 'SUCESSFUL', data: saleUpdated };
+};
+
 module.exports = {
     getAllSales,
     getSaleById,
     addSale,
     deleteSale,
+    editProductQuantity,
 };

@@ -50,10 +50,21 @@ const deleteProduct = async (productId) => {
     return { status: 'SUCESSFUL', data: { message: `Product with id ${productId} deleted` } };
 };
 
+const findProductByName = async (productName) => {
+    const products = await productModel.findProductByName(productName);
+
+    if (!products) {
+        return { status: 'NOT_FOUND', data: 'Products not found' };
+    }
+
+    return { status: 'SUCESSFUL', data: products };
+};
+
 module.exports = {
     getAllProducts,
     getProductById,
     addProduct,
     editProduct,
     deleteProduct,
+    findProductByName,
 };

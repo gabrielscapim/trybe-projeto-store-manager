@@ -3,6 +3,7 @@ const { productController } = require('../controllers');
 const { validateProductFields,
     validateProductId } = require('../middlewares/validateProductFields');
 
+route.get('/search', productController.findProductByName);
 route.get('/', productController.findAllProducts);
 route.get('/:id', productController.findProductById);
 route.post('/', validateProductFields, productController.addProduct);

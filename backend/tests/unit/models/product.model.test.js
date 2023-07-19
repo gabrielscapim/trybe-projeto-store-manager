@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon'); // duble de testes
 const connection = require('../../../src/models/connection');
-const { productsFromDB, productFromDB, productIdFromDB, updateProductFromDB, deleteProductFromDB } = require('../mocks/product.mock');
+const { productsFromDB, productFromDB, productIdFromDB, updateProductFromDB, deleteProductFromDB, productsByNameFromDB } = require('../mocks/product.mock');
 const { productModel } = require('../../../src/models');
 
 describe('Realizando testes - PRODUCT MODEL:', function () {
@@ -48,6 +48,15 @@ describe('Realizando testes - PRODUCT MODEL:', function () {
         const result = await productModel.deleteProduct(productId);
 
         expect(result[0].affectedRows).to.be.equal(1);
+    });
+
+    it('Procurando um produto por nome com sucesso', async function () {
+        sinon.stub(connection, 'execute').resolves([productsByNameFromDB]);
+
+        const productName = 'Martelo';
+        const products = await productModel.findProductByName(productName);
+
+        expect(products).to.be.deep.equal(productsByNameFromDB);
     });
 
     afterEach(function () {
